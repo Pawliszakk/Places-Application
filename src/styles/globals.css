@@ -15,7 +15,7 @@ body {
 main {
 	margin-top: 5rem;
 }
-.slide-in-left-enter {
+/* .slide-in-left-enter {
 	transform: translateX(-100%);
 }
 
@@ -34,7 +34,7 @@ main {
 	transform: translateX(-100%);
 	opacity: 0;
 	transition: all 200ms;
-}
+} */
 
 .center {
 	text-align: center;
