@@ -8,7 +8,8 @@ const PlaceItem = ({
 	title,
 	description,
 	address,
-
+	creatorId,
+	coordinates,
 }) => {
 	const router = useRouter();
 
