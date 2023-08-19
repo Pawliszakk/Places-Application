@@ -1,9 +1,14 @@
+import Card from '../UI/Card';
 import UserItem from './UserItem';
 import classes from './UsersList.module.css';
 
 const UsersList = ({ users }) => {
 	if (!users || users.length === 0) {
-		return <h2>No users Found...</h2>;
+		return (
+			<Card>
+				<h2>No users Found...</h2>
+			</Card>
+		);
 	}
 	return (
 		<ul className={classes.usersList}>
