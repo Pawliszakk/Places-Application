@@ -25,9 +25,9 @@ const PlaceItem = ({
 					<p>{description}</p>
 				</div>
 				<div className={classes.actions}>
-					<button>VIEV ON MAP</button>
-					<button onClick={() => router.push(`/places/${id}`)}>EDIT</button>
-					<button>DELETE</button>
+					<button>View on map</button>
+					<button onClick={() => router.push(`/places/${id}`)}>Edit</button>
+					<button>Delete</button>
 				</div>
 			</Card>
 		</li>
