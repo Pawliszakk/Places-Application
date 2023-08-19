@@ -1,6 +1,6 @@
 import { createPortal } from 'react-dom';
 
-import classes from './Backdrop.module.css';
+ import classes from './Backdrop.module.css';
 
 const Backdrop = ({ onClick }) => {
 	return createPortal(

@@ -1,6 +1,6 @@
 import UsersList from '../../components/users/UsersList';
 
-const Users = () => {
+const HomePage = () => {
 	const DUMMY_USERS = [
 		{
 			name: 'John Doe',
@@ -27,4 +27,4 @@ const Users = () => {
 	return <UsersList users={DUMMY_USERS} />;
 };
 
-export default Users;
+export default HomePage;

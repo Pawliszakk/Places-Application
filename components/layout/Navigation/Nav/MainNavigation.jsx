@@ -16,11 +16,12 @@ const MainNavigation = () => {
 		<>
 			{isDrawerOpen ? (
 				<>
-					<SideDrawer>
+					<SideDrawer show={isDrawerOpen} onClick={handleDrawer}>
 						<nav className={classes.drawerNav}>
 							<NavLinks />
 						</nav>
 					</SideDrawer>
+
 					<Backdrop onClick={handleDrawer} />
 				</>
 			) : null}
