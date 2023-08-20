@@ -7,6 +7,7 @@ export default function Document() {
 			<body>
 				<div id="drawer"></div>
 				<div id="backdrop-hook"></div>
+				<div id="modal-hook"></div>
 				<Main />
 				<NextScript />
 			</body>
