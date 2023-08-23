@@ -8,7 +8,7 @@ const PlaceEditPage = () => {
 	return (
 		<>
 			<h1>The edit page of {placeId} place, make sure you save edits!</h1>
-			<EditPlace />
+			<EditPlace placeId={placeId} />
 		</>
 	);
 };
