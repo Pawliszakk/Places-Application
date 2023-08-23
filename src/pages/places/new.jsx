@@ -1,5 +1,7 @@
+import NewPlace from '../../../components/places/NewPlace';
+
 const NewPlacePage = () => {
-	return <h1>New Place!</h1>;
+	return <NewPlace />;
 };
 
 export default NewPlacePage;
