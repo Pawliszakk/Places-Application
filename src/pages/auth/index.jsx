@@ -1,5 +1,7 @@
+import Auth from "../../../components/users/Auth/Auth";
+
 const AuthenticatePage = () => {
-	return <h1>Authenticate yourself</h1>;
+	return <Auth />;
 };
 
 export default AuthenticatePage;
