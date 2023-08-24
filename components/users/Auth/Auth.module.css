@@ -9,7 +9,9 @@
 	border-radius: 15px;
 	padding: 1em;
 }
-
+.authForm label{
+    font-size: 1.6rem;
+}
 .authForm input {
 	margin: 1em;
 	padding: 0.3em 1em;
