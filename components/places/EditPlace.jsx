@@ -56,13 +56,33 @@ const EditPlace = ({ placeId }) => {
 	const currentPlace = places.find((p) => p.id === +placeId);
 
 	const [title, setTitle] = useState('Domyslny title place');
-	const [description, setDescription] = useState('Domyslny desc place');
+	const [titleIsValid, setIsTitleValid] = useState(true);
 
-	const handleTitleChange = (e) => setTitle(e.target.value);
-	const handleDescriptionChange = (e) => setDescription(e.target.value);
+	const [description, setDescription] = useState('Domyslny desc place');
+	const [descriptionIsValid, setIsDescriptionValid] = useState(true);
+	const [isFormValid, setIsFormValid] = useState(true);
+
+	const handleTitleChange = (e) => {
+		setTitle(e.target.value);
+		title.length < 3 ? setIsTitleValid(false) : setIsTitleValid(true);
+	};
+	const handleDescriptionChange = (e) => {
+		setDescription(e.target.value);
+		description.length < 20
+			? setIsDescriptionValid(false)
+			: setIsDescriptionValid(true);
+	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+
+		if (!descriptionIsValid || !titleIsValid) {
+			setIsFormValid(false);
+		}
+
+		const postData = { title, description };
+		console.log(postData);
+		setIsFormValid(true);
 	};
 	return (
 		<div className={classes.edit}>
@@ -75,6 +95,7 @@ const EditPlace = ({ placeId }) => {
 						value={title}
 						onChange={handleTitleChange}
 					/>
+					{!titleIsValid && <p>Title should have minimum 3 characters</p>}
 				</div>
 				<div className={classes.input}>
 					<label htmlFor="text">Text</label>
@@ -84,7 +105,9 @@ const EditPlace = ({ placeId }) => {
 						value={description}
 						onChange={handleDescriptionChange}
 					/>
+					{!descriptionIsValid && <p>Text should have minimum 20 characters</p>}
 				</div>
+				{!isFormValid && <p>Please input valid data</p>}
 				<button type="submit">Submit</button>
 			</form>
 		</div>
