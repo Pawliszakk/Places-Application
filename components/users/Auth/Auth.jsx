@@ -7,6 +7,7 @@ const Auth = () => {
 
 	const [isEmailValid, setIsEmailValid] = useState(true);
 	const [isPasswordValid, setIsPasswordValid] = useState(true);
+	const isFormValid = isEmailValid && isPasswordValid;
 
 	const submitHandler = (e) => {
 		e.preventDefault();
@@ -51,7 +52,7 @@ const Auth = () => {
 				/>
 				{!isPasswordValid && <p>Please insert a valid password</p>}
 			</div>
-
+			{!isFormValid && <p>Please insert valid credentials</p>}
 			<button type="submit">Login</button>
 		</form>
 	);
