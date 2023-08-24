@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import classes from './EditPlace.module.css';
 const places = [
 	{
@@ -55,10 +55,10 @@ const places = [
 const EditPlace = ({ placeId }) => {
 	const currentPlace = places.find((p) => p.id === +placeId);
 
-	const [title, setTitle] = useState('Domyslny title place');
+	const [title, setTitle] = useState('');
 	const [titleIsValid, setIsTitleValid] = useState(true);
 
-	const [description, setDescription] = useState('Domyslny desc place');
+	const [description, setDescription] = useState('');
 	const [descriptionIsValid, setIsDescriptionValid] = useState(true);
 	const [isFormValid, setIsFormValid] = useState(true);
 
@@ -80,10 +80,17 @@ const EditPlace = ({ placeId }) => {
 			setIsFormValid(false);
 		}
 
-		const postData = { title, description };
+		const postData = { title, description, id: placeId };
 		console.log(postData);
+		//SEND TO API
 		setIsFormValid(true);
 	};
+	useEffect(() => {
+		if (currentPlace) {
+			setTitle(currentPlace.title);
+			setDescription(currentPlace.description);
+		}
+	}, [currentPlace]);
 	return (
 		<div className={classes.edit}>
 			<form onSubmit={handleSubmit}>
@@ -108,7 +115,7 @@ const EditPlace = ({ placeId }) => {
 					{!descriptionIsValid && <p>Text should have minimum 20 characters</p>}
 				</div>
 				{!isFormValid && <p>Please input valid data</p>}
-				<button type="submit">Submit</button>
+				<button type="submit">Edit Place</button>
 			</form>
 		</div>
 	);

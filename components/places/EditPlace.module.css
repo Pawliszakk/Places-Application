@@ -1,5 +1,5 @@
 .edit {
-    max-width: 50%;
+	max-width: 50%;
 	margin: 0 auto;
 	background-color: #fff;
 	display: flex;
@@ -7,4 +7,23 @@
 	align-items: flex-start;
 	flex-direction: column;
 	padding: 1em;
+	border-radius: 5px;
+}
+.edit input {
+	margin: 0.5em 0.3em;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	background-color: #eee;
+	padding: 0.3em 1em;
+}
+.edit button {
+	padding: 0.5em 1em;
+	border-radius: 5px;
+	background-color: rgb(207, 40, 40);
+	border: none;
+	cursor: pointer;
+	color: #fff;
+}
+.edit p {
+	color: rgb(227, 87, 63);
 }
