@@ -29,7 +29,7 @@
 	transition: background-color 0.3s;
 }
 .authForm button:hover {
-	background-color: tomato;
+	background-color: rgb(252, 106, 80);
 }
 .authForm p {
 	color: rgb(155, 35, 14);
