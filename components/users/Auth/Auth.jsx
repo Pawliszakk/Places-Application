@@ -2,6 +2,8 @@ import { useRef, useState } from 'react';
 import classes from './Auth.module.css';
 
 const Auth = () => {
+	const [isLogin, setIsLogin] = useState(true);
+
 	const emailInputRef = useRef();
 	const passwordInputRef = useRef();
 
@@ -14,9 +16,9 @@ const Auth = () => {
 
 		const email = emailInputRef.current.value;
 		const password = passwordInputRef.current.value;
-
+		p;
 		const isEmailValid = email.includes('@');
-		const isPasswordValid = password.trim().length > 8;
+		const isPasswordValid = assword.trim().length > 8;
 
 		isEmailValid ? setIsEmailValid(true) : setIsEmailValid(false);
 		isPasswordValid > 8 ? setIsPasswordValid(true) : setIsPasswordValid(false);
@@ -54,6 +56,12 @@ const Auth = () => {
 			</div>
 			{!isFormValid && <p>Please insert valid credentials</p>}
 			<button type="submit">Login</button>
+			<button
+				type="button"
+				onClick={() => setIsLogin((prevState) => !prevState)}
+			>
+				Switch to {isLogin ? 'Signup': 'Login'}
+			</button>
 		</form>
 	);
 };
