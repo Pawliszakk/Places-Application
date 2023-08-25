@@ -36,3 +36,11 @@
 .authForm p {
 	color: rgb(155, 35, 14);
 }
+
+.buttons {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 1em;
+}

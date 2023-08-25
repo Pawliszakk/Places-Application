@@ -6,24 +6,43 @@ const Auth = () => {
 
 	const emailInputRef = useRef();
 	const passwordInputRef = useRef();
+	const nameInputRef = useRef();
 
 	const [isEmailValid, setIsEmailValid] = useState(true);
 	const [isPasswordValid, setIsPasswordValid] = useState(true);
-	const isFormValid = isEmailValid && isPasswordValid;
+	const [isNameValid, setIsNameValid] = useState(true);
+
+	const isFormValid =
+		isEmailValid && isPasswordValid && isLogin ? true : isNameValid;
 
 	const submitHandler = (e) => {
 		e.preventDefault();
 
 		const email = emailInputRef.current.value;
 		const password = passwordInputRef.current.value;
-		p;
-		const isEmailValid = email.includes('@');
-		const isPasswordValid = assword.trim().length > 8;
 
-		isEmailValid ? setIsEmailValid(true) : setIsEmailValid(false);
-		isPasswordValid > 8 ? setIsPasswordValid(true) : setIsPasswordValid(false);
+		const emailValidity = email.includes('@');
+		const passwordValidity = password.trim().length > 8;
 
-		if (!isEmailValid || !isPasswordValid) {
+		emailValidity ? setIsEmailValid(true) : setIsEmailValid(false);
+		passwordValidity ? setIsPasswordValid(true) : setIsPasswordValid(false);
+
+		if (!isLogin) {
+			const name = nameInputRef.current.value;
+			const nameValidity = name.trim().length > 5;
+			nameValidity ? setIsNameValid(true) : setIsNameValid(false);
+
+			if (!emailValidity || !passwordValidity || !nameValidity) {
+				console.log('error');
+				return;
+			}
+			const loginData = { email, password, name };
+			console.log(loginData);
+			return;
+		}
+
+		if (!emailValidity || !isPasswordValid) {
+			console.log('error');
 			return;
 		}
 
@@ -34,6 +53,18 @@ const Auth = () => {
 	};
 	return (
 		<form onSubmit={submitHandler} className={classes.authForm}>
+			{!isLogin && (
+				<div className={classes.action}>
+					<label htmlFor="name">Name</label>
+					<input
+						ref={nameInputRef}
+						type="text"
+						id="name"
+						placeholder="Please enter your name..."
+					/>
+					{!isNameValid && <p>Please insert a valid Name</p>}
+				</div>
+			)}
 			<div className={classes.action}>
 				<label htmlFor="email">E:Mail</label>
 				<input
@@ -55,13 +86,16 @@ const Auth = () => {
 				{!isPasswordValid && <p>Please insert a valid password</p>}
 			</div>
 			{!isFormValid && <p>Please insert valid credentials</p>}
-			<button type="submit">Login</button>
-			<button
-				type="button"
-				onClick={() => setIsLogin((prevState) => !prevState)}
-			>
-				Switch to {isLogin ? 'Signup': 'Login'}
-			</button>
+
+			<div className={classes.buttons}>
+				<button type="submit">Login</button>
+				<button
+					type="button"
+					onClick={() => setIsLogin((prevState) => !prevState)}
+				>
+					Switch to {isLogin ? 'Signup' : 'Login'}
+				</button>
+			</div>
 		</form>
 	);
 };
