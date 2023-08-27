@@ -1,8 +1,12 @@
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import classes from './Auth.module.css';
+import AuthContext from '../../../context/auth-context';
+import { useRouter } from 'next/router';
 
 const Auth = () => {
 	const [isLogin, setIsLogin] = useState(true);
+	const authCtx = useContext(AuthContext);
+	const router = useRouter();
 
 	const emailInputRef = useRef();
 	const passwordInputRef = useRef();
@@ -47,8 +51,9 @@ const Auth = () => {
 		}
 
 		const loginData = { email, password };
+		authCtx.login();
 		console.log(loginData);
-
+		router.replace('/');
 		//SEND TO API
 	};
 	return (

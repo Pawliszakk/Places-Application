@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import classes from './EditPlace.module.css';
+import AuthContext from '../../context/auth-context';
+import { useRouter } from 'next/router';
 const places = [
 	{
 		id: 1,
@@ -62,6 +64,14 @@ const EditPlace = ({ placeId }) => {
 	const [descriptionIsValid, setIsDescriptionValid] = useState(true);
 	const [isFormValid, setIsFormValid] = useState(true);
 
+	const router = useRouter();
+
+	const authCtx = useContext(AuthContext);
+	const isLoggedIn = authCtx.isLoggedIn;
+	if (!isLoggedIn) {
+		router.replace('/auth');
+	}
+
 	const handleTitleChange = (e) => {
 		setTitle(e.target.value);
 		title.length < 3 ? setIsTitleValid(false) : setIsTitleValid(true);
@@ -94,6 +104,7 @@ const EditPlace = ({ placeId }) => {
 	return (
 		<div className={classes.edit}>
 			<form onSubmit={handleSubmit}>
+				<p>{isLoggedIn}</p>
 				<div className={classes.input}>
 					<label htmlFor="title">Title</label>
 					<input

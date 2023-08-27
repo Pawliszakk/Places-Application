@@ -33,6 +33,11 @@ const NavLinks = () => {
 					);
 				}
 			})}
+			{isLoggedIn && (
+				<li>
+					<button onClick={authCtx.logout}>Logout</button>
+				</li>
+			)}
 		</ul>
 	);
 };

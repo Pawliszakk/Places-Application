@@ -1,26 +1,22 @@
 import { useRouter } from 'next/router';
 import Card from '../../../UI/Card';
 import classes from './PlaceItem.module.css';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Modal from '../../../UI/Modal';
-const PlaceItem = ({
-	id,
-	image,
-	title,
-	description,
-	address,
-	creatorId,
-	coordinates,
-}) => {
+import AuthContext from '../../../../context/auth-context';
+const PlaceItem = ({ id, image, title, description, address }) => {
 	const [isMap, setIsMap] = useState(false);
 	const [isDelete, setIsDelete] = useState(false);
 
+	const authCtx = useContext(AuthContext);
 	const router = useRouter();
+
 	const showMapHandler = () => setIsMap(true);
 	const hideMapHandler = () => setIsMap(false);
 
 	const showDeleteHandler = () => setIsDelete(true);
 	const hideDeleteHandler = () => setIsDelete(false);
+
 	const deleteItemHandler = (id) => {
 		//Fetch api to deleting item
 		console.log(`zara bede usuwała item o id ${id}!`);
@@ -40,8 +36,14 @@ const PlaceItem = ({
 					</div>
 					<div className={classes.actions}>
 						<button onClick={showMapHandler}>View on map</button>
-						<button onClick={() => router.push(`/places/${id}`)}>Edit</button>
-						<button onClick={showDeleteHandler}>Delete</button>
+						{authCtx.isLoggedIn && (
+							<>
+								<button onClick={() => router.push(`/places/${id}`)}>
+									Edit
+								</button>
+								<button onClick={showDeleteHandler}>Delete</button>
+							</>
+						)}
 					</div>
 				</Card>
 			</li>

@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import classes from './NewPlace.module.css';
+import AuthContext from '../../context/auth-context';
+import { useRouter } from 'next/router';
 const NewPlace = () => {
 	const [enteredTitle, setEnteredTitle] = useState('');
 	const [titleIsValid, setIsTitleValid] = useState(true);
@@ -12,6 +14,15 @@ const NewPlace = () => {
 	const [addressIsValid, setIsAddressValid] = useState(true);
 
 	const [isFormValid, setIsFormValid] = useState(true);
+
+	const router = useRouter();
+
+	const authCtx = useContext(AuthContext);
+	const isLoggedIn = authCtx.isLoggedIn;
+	if (!isLoggedIn) {
+		router.replace('/auth');
+	}
+
 	const submitHandler = (e) => {
 		e.preventDefault();
 
