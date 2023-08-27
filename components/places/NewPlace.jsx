@@ -20,19 +20,23 @@ const NewPlace = () => {
 	const authCtx = useContext(AuthContext);
 	const isLoggedIn = authCtx.isLoggedIn;
 	if (!isLoggedIn) {
-		router.replace('/auth');
+		typeof window !== 'undefined' && router.push('/auth');
 	}
 
 	const submitHandler = (e) => {
 		e.preventDefault();
 
-		enteredTitle.length < 3 ? setIsTitleValid(false) : setIsTitleValid(true);
-		enteredText.length < 20 ? setIsTextValid(false) : setIsTextValid(true);
-		enteredAddress.length < 5
-			? setIsAddressValid(false)
-			: setIsAddressValid(true);
-		if (!textIsValid || !titleIsValid || !addressIsValid) {
+		const isTitleValid = enteredTitle.length > 3;
+		const isTextValid = enteredText.length > 20;
+		const isAddressValid = enteredAddress > 5;
+
+		setIsTitleValid(isTitleValid);
+		setIsTextValid(isTextValid);
+		setIsAddressValid(isAddressValid);
+
+		if (!isTitleValid || !isTextValid || !isAddressValid) {
 			setIsFormValid(false);
+			return;
 		}
 		const placeData = {
 			title: enteredTitle,
