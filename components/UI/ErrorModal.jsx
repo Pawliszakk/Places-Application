@@ -1,3 +1,5 @@
+
+
 import Modal from './Modal';
 
 const ErrorModal = ({ onClear, error }) => {

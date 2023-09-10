@@ -8,7 +8,7 @@ import LoadingSpinner from '../../UI/LoadingSpinner';
 const Auth = () => {
 	const [isLogin, setIsLogin] = useState(true);
 	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState('Loading...');
+	const [error, setError] = useState(null);
 
 	const authCtx = useContext(AuthContext);
 	const router = useRouter();
@@ -56,10 +56,12 @@ const Auth = () => {
 					body: JSON.stringify(loginData),
 				});
 				const resData = await res.json();
-				console.log(resData);
-				setError(resData.message);
-				authCtx.login();
-				router.replace('/');
+				if (!res.ok) {
+					throw new Error(resData.message);
+				}
+
+				// authCtx.login();
+				// router.replace('/');
 			} catch (error) {
 				setError(error.message || 'Something Went Wrong');
 			}
@@ -71,8 +73,27 @@ const Auth = () => {
 			console.log('error');
 			return;
 		}
-
 		const loginData = { email, password };
+		try {
+			setIsLoading(true);
+			const res = await fetch('http://localhost:5000/api/users/login', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(loginData),
+			});
+			const resData = await res.json();
+			if (!res.ok) {
+				throw new Error(resData.message);
+			}
+
+			authCtx.login();
+			router.replace('/');
+		} catch (error) {
+			setError(error.message || 'Something Went Wrong');
+		}
+		setIsLoading(false);
 	};
 	return (
 		<form onSubmit={submitHandler} className={classes.authForm}>
@@ -120,7 +141,7 @@ const Auth = () => {
 				</button>
 			</div>
 			{isLoading && <LoadingSpinner asOverlay />}
-			{error && <p>{error}</p>}
+			{error && <ErrorModal onClear={() => setError(null)} error={error} />}
 		</form>
 	);
 };
