@@ -56,12 +56,13 @@ const Auth = () => {
 					body: JSON.stringify(loginData),
 				});
 				const resData = await res.json();
+
 				if (!res.ok) {
 					throw new Error(resData.message);
 				}
 
-				// authCtx.login();
-				// router.replace('/');
+				authCtx.login(resData.userId);
+				router.replace('/');
 			} catch (error) {
 				setError(error.message || 'Something Went Wrong');
 			}
@@ -88,7 +89,8 @@ const Auth = () => {
 				throw new Error(resData.message);
 			}
 
-			authCtx.login();
+			authCtx.login(resData.userId);
+
 			router.replace('/');
 		} catch (error) {
 			setError(error.message || 'Something Went Wrong');

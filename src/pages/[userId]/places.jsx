@@ -8,16 +8,16 @@ export default UserPlacesPage;
 
 export const getServerSideProps = async ({ params }) => {
 	const userId = params.userId;
-	let res;
+	let resData;
 	try {
-		res = await fetch(`http://localhost:5000/api/places/user/${userId}`);
+		const res = await fetch(`http://localhost:5000/api/places/user/${userId}`);
+		if (!res.ok) {
+			return { props: { places: [] } };
+		}
+		resData = await res.json();
 	} catch (err) {
 		return { props: { places: [] } };
 	}
-	if (!res.ok) {
-		return { props: { places: [] } };
-	}
-	const resData = await res.json();
 
 	return {
 		props: {
