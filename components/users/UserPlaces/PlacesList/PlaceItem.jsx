@@ -4,9 +4,14 @@ import classes from './PlaceItem.module.css';
 import { useContext, useState } from 'react';
 import Modal from '../../../UI/Modal';
 import AuthContext from '../../../../context/auth-context';
+import LoadingSpinner from '../../../UI/LoadingSpinner';
+import ErrorModal from '../../../UI/ErrorModal';
+
 const PlaceItem = ({ id, image, title, description, address }) => {
 	const [isMap, setIsMap] = useState(false);
 	const [isDelete, setIsDelete] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState(false);
 
 	const authCtx = useContext(AuthContext);
 	const router = useRouter();
@@ -17,10 +22,26 @@ const PlaceItem = ({ id, image, title, description, address }) => {
 	const showDeleteHandler = () => setIsDelete(true);
 	const hideDeleteHandler = () => setIsDelete(false);
 
-	const deleteItemHandler = (id) => {
-		//Fetch api to deleting item
-		console.log(`zara bede usuwała item o id ${id}!`);
+	const deleteItemHandler = async (id) => {
+		setIsLoading(true);
+
+		try {
+			const res = await fetch(`http://localhost:5000/api/places/${id}`, {
+				method: 'DELETE',
+			});
+			if (!res.ok) {
+				setError('Cant delete place');
+				return;
+			}
+			const resData = await res.json();
+			setError(resData.message);
+			router.push(`/${authCtx.userId}/places`);
+		} catch (err) {
+			setError(err.message || 'Something went wrong');
+		}
+
 		setIsDelete(false);
+		setIsLoading(false);
 	};
 	return (
 		<>
@@ -79,6 +100,8 @@ const PlaceItem = ({ id, image, title, description, address }) => {
 					</div>
 				</Modal>
 			)}
+			{error && <ErrorModal onClear={() => setError(false)} error={error} />}
+			{isLoading && <LoadingSpinner />}
 		</>
 	);
 };
