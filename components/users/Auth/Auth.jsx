@@ -4,6 +4,7 @@ import AuthContext from '../../../context/auth-context';
 import { useRouter } from 'next/router';
 import ErrorModal from '../../UI/ErrorModal';
 import LoadingSpinner from '../../UI/LoadingSpinner';
+import ImageUpload from '../../UI/ImageUpload';
 
 const Auth = () => {
 	const [isLogin, setIsLogin] = useState(true);
@@ -16,13 +17,17 @@ const Auth = () => {
 	const emailInputRef = useRef();
 	const passwordInputRef = useRef();
 	const nameInputRef = useRef();
-
+	const [image, setImage] = useState(null);
 	const [isEmailValid, setIsEmailValid] = useState(true);
 	const [isPasswordValid, setIsPasswordValid] = useState(true);
 	const [isNameValid, setIsNameValid] = useState(true);
 
 	const isFormValid =
 		isEmailValid && isPasswordValid && isLogin ? true : isNameValid;
+
+	const onImageInput = (id, pickedFile, fileIsValid) => {
+		setImage(pickedFile);
+	};
 
 	const submitHandler = async (e) => {
 		e.preventDefault();
@@ -41,11 +46,11 @@ const Auth = () => {
 			const nameValidity = name.trim().length > 5;
 			nameValidity ? setIsNameValid(true) : setIsNameValid(false);
 
-			if (!emailValidity || !passwordValidity || !nameValidity) {
+			if (!emailValidity || !passwordValidity || !nameValidity || !image) {
 				console.log('error');
 				return;
 			}
-			const loginData = { email, password, name };
+			const loginData = { email, password, name, image };
 			try {
 				setIsLoading(true);
 				const res = await fetch('http://localhost:5000/api/users/signup', {
@@ -132,7 +137,11 @@ const Auth = () => {
 				{!isPasswordValid && <p>Please insert a valid password</p>}
 			</div>
 			{!isFormValid && <p>Please insert valid credentials</p>}
-
+			{!isLogin && (
+				<div className={classes.action}>
+					<ImageUpload onInput={onImageInput} />
+				</div>
+			)}
 			<div className={classes.buttons}>
 				<button type="submit">Login</button>
 				<button

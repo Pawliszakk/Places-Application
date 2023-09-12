@@ -24,7 +24,7 @@ export async function getServerSideProps({ params }) {
 			props: { place: null },
 		};
 	}
-	console.log(resData);
+
 	return {
 		props: {
 			place: resData.place,

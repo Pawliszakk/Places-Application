@@ -7,7 +7,7 @@ import AuthContext from '../../../../context/auth-context';
 import LoadingSpinner from '../../../UI/LoadingSpinner';
 import ErrorModal from '../../../UI/ErrorModal';
 
-const PlaceItem = ({ id, image, title, description, address }) => {
+const PlaceItem = ({ id, image, title, description, address, creatorId }) => {
 	const [isMap, setIsMap] = useState(false);
 	const [isDelete, setIsDelete] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
@@ -57,7 +57,7 @@ const PlaceItem = ({ id, image, title, description, address }) => {
 					</div>
 					<div className={classes.actions}>
 						<button onClick={showMapHandler}>View on map</button>
-						{authCtx.isLoggedIn && (
+						{authCtx.isLoggedIn && authCtx.userId === creatorId && (
 							<>
 								<button onClick={() => router.push(`/places/${id}`)}>
 									Edit

@@ -12,7 +12,7 @@ const NavLinks = () => {
 
 	const links = [
 		{ name: 'All Users', href: '/', show: true },
-		{ name: 'My Places', href: '/u1/places', show: isLoggedIn },
+		{ name: 'My Places', href: `/${authCtx.userId}/places`, show: isLoggedIn },
 		{ name: 'Add Place', href: '/places/new', show: isLoggedIn },
 		{ name: 'Authenticate', href: '/auth', show: !isLoggedIn },
 	];
