@@ -1,4 +1,4 @@
-import Card from '../UI/Card';
+import Card from '../places/UI/Card';
 import UserItem from './UserItem';
 import classes from './UsersList.module.css';
 

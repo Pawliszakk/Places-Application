@@ -2,9 +2,9 @@ import { useContext, useRef, useState } from 'react';
 import classes from './Auth.module.css';
 import AuthContext from '../../../context/auth-context';
 import { useRouter } from 'next/router';
-import ErrorModal from '../../UI/ErrorModal';
-import LoadingSpinner from '../../UI/LoadingSpinner';
-import ImageUpload from '../../UI/ImageUpload';
+import ErrorModal from '../../places/UI/ErrorModal';
+import LoadingSpinner from '../../places/UI/LoadingSpinner';
+import ImageUpload from '../../places/UI/ImageUpload';
 
 const Auth = () => {
 	const [isLogin, setIsLogin] = useState(true);
@@ -50,15 +50,19 @@ const Auth = () => {
 				console.log('error');
 				return;
 			}
-			const loginData = { email, password, name, image };
+
 			try {
 				setIsLoading(true);
+				const formData = new FormData();
+				formData.append('email', email);
+				formData.append('password', password);
+				formData.append('name', name);
+				formData.append('image', image);
+
 				const res = await fetch('http://localhost:5000/api/users/signup', {
 					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify(loginData),
+
+					body: formData,
 				});
 				const resData = await res.json();
 

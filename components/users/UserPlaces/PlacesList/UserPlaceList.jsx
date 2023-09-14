@@ -1,6 +1,6 @@
 import classes from './UserPlaceList.module.css';
 import PlaceItem from './PlaceItem';
-import Card from '../../../UI/Card';
+import Card from '../../../places/UI/Card';
 import Link from 'next/link';
 
 const UserPlaceList = ({ places }) => {

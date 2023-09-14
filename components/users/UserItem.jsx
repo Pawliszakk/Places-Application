@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import Avatar from '../UI/Avatar';
+import Avatar from '../places/UI/Avatar';
 import classes from './UserItem.module.css';
-import Card from '../UI/Card';
+import Card from '../places/UI/Card';
 
 const UserItem = ({ id, name, image, placeCount }) => {
 	return (
@@ -9,7 +9,10 @@ const UserItem = ({ id, name, image, placeCount }) => {
 			<Card className={classes.content}>
 				<Link href={`/${id}/places`}>
 					<div className={classes.image}>
-						<Avatar image={image} alt={`${name} Place photo`} />
+						<Avatar
+							image={`http://localhost:5000/${image}`}
+							alt={`${name} Place photo`}
+						/>
 					</div>
 					<div className={classes.info}>
 						<h2>{name}</h2>

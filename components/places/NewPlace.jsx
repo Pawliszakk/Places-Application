@@ -3,8 +3,9 @@ import { useContext, useState } from 'react';
 import classes from './NewPlace.module.css';
 import AuthContext from '../../context/auth-context';
 import { useRouter } from 'next/router';
-import ErrorModal from '../UI/ErrorModal';
-import LoadingSpinner from '../UI/LoadingSpinner';
+import ErrorModal from './UI/ErrorModal';
+import LoadingSpinner from './UI/LoadingSpinner';
+import ImageUpload from './UI/ImageUpload';
 const NewPlace = () => {
 	const [loading, setIsLoading] = useState(false);
 	const [error, setError] = useState(false);
@@ -16,6 +17,8 @@ const NewPlace = () => {
 
 	const [enteredAddress, setEnteredAddress] = useState('');
 	const [addressIsValid, setIsAddressValid] = useState(true);
+
+	const [image, setImage] = useState(null);
 
 	const [isFormValid, setIsFormValid] = useState(true);
 
@@ -42,18 +45,19 @@ const NewPlace = () => {
 			setIsFormValid(false);
 			return;
 		}
-		const placeData = {
-			title: enteredTitle,
-			description: enteredText,
-			address: enteredAddress,
-			creator: authCtx.userId,
-		};
+
 		setIsLoading(true);
 		try {
+			const formData = new FormData();
+			formData.append('title', enteredTitle);
+			formData.append('description', enteredText);
+			formData.append('address', enteredAddress);
+			formData.append('image', image);
+			formData.append('creator', authCtx.userId);
+
 			const res = await fetch('http://localhost:5000/api/places', {
 				method: 'POST',
-				body: JSON.stringify(placeData),
-				headers: { 'Content-Type': 'application/json' },
+				body: formData,
 			});
 
 			const resData = await res.json();
@@ -69,10 +73,9 @@ const NewPlace = () => {
 		setIsLoading(false);
 		setIsFormValid(true);
 	};
-
-	const handleTitleChange = (e) => setEnteredTitle(e.target.value);
-	const handleTextChange = (e) => setEnteredText(e.target.value);
-	const handleAddressChange = (e) => setEnteredAddress(e.target.value);
+	const imageHandler = (id, image, isValid) => {
+		isValid ? setImage(image) : null;
+	};
 
 	return (
 		<>
@@ -88,7 +91,7 @@ const NewPlace = () => {
 						id="title"
 						value={enteredTitle}
 						placeholder="Enter a title of new place"
-						onChange={handleTitleChange}
+						onChange={(e) => setEnteredTitle(e.target.value)}
 					/>
 					{!titleIsValid && <p>Title should have minimum 3 characters</p>}
 				</div>
@@ -103,7 +106,7 @@ const NewPlace = () => {
 						id="text"
 						value={enteredText}
 						placeholder="Enter a description of new place"
-						onChange={handleTextChange}
+						onChange={(e) => setEnteredText(e.target.value)}
 					/>
 					{!textIsValid && <p>Text should have minimum 20 characters</p>}
 				</div>
@@ -118,11 +121,12 @@ const NewPlace = () => {
 						id="address"
 						value={enteredAddress}
 						placeholder="Enter an address of new place"
-						onChange={handleAddressChange}
+						onChange={(e) => setEnteredAddress(e.target.value)}
 					/>
 					{!addressIsValid && <p>Text should have minimum 20 characters</p>}
 				</div>
 				{!isFormValid && <p>Please enter valid address</p>}
+				<ImageUpload center onInput={imageHandler} />
 				<button type="submit">Submit</button>{' '}
 			</form>
 			{error && <ErrorModal onClear={() => setError(null)} error={error} />}

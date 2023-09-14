@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
-import Card from '../../../UI/Card';
+import Card from '../../../places/UI/Card';
 import classes from './PlaceItem.module.css';
 import { useContext, useState } from 'react';
-import Modal from '../../../UI/Modal';
+import Modal from '../../../places/UI/Modal';
 import AuthContext from '../../../../context/auth-context';
-import LoadingSpinner from '../../../UI/LoadingSpinner';
-import ErrorModal from '../../../UI/ErrorModal';
+import LoadingSpinner from '../../../places/UI/LoadingSpinner';
+import ErrorModal from '../../../places/UI/ErrorModal';
 
 const PlaceItem = ({ id, image, title, description, address, creatorId }) => {
 	const [isMap, setIsMap] = useState(false);
@@ -48,7 +48,7 @@ const PlaceItem = ({ id, image, title, description, address, creatorId }) => {
 			<li className={classes.placeItem}>
 				<Card className={classes.content}>
 					<div className={classes.image}>
-						<img src={image} alt={title} />
+						<img src={`http://localhost:5000/${image}`} alt={title} />
 					</div>
 					<div className={classes.info}>
 						<h2>{title}</h2>

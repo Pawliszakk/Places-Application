@@ -2,8 +2,8 @@ import { useContext, useEffect, useState } from 'react';
 import classes from './EditPlace.module.css';
 import AuthContext from '../../context/auth-context';
 import { useRouter } from 'next/router';
-import LoadingSpinner from '../UI/LoadingSpinner';
-import ErrorModal from '../UI/ErrorModal';
+import LoadingSpinner from './UI/LoadingSpinner';
+import ErrorModal from './UI/ErrorModal';
 
 const EditPlace = (props) => {
 	const [title, setTitle] = useState(props.title);
