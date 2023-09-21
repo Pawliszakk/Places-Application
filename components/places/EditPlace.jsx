@@ -50,7 +50,10 @@ const EditPlace = (props) => {
 				{
 					method: 'PATCH',
 					body: JSON.stringify(postData),
-					headers: { 'Content-Type': 'application/json' },
+					headers: {
+						Authorization: `Bearer ${authCtx.token}`,
+						'Content-Type': 'application/json',
+					},
 				}
 			);
 			if (!res.ok) {

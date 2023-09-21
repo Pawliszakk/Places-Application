@@ -28,6 +28,7 @@ const PlaceItem = ({ id, image, title, description, address, creatorId }) => {
 		try {
 			const res = await fetch(`http://localhost:5000/api/places/${id}`, {
 				method: 'DELETE',
+				headers: { Authorization: `Bearer ${authCtx.token}` },
 			});
 			if (!res.ok) {
 				setError('Cant delete place');

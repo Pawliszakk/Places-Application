@@ -3,26 +3,28 @@ import { createContext, useCallback, useState } from 'react';
 const AuthContext = createContext({
 	isLoggedIn: false,
 	userId: null,
+	token: null,
 	login: () => {},
 	logout: () => {},
 });
 
 export const AuthContextProvider = ({ children }) => {
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [token, setToken] = useState(null);
 	const [userId, setUserId] = useState(null);
 
-	const loginHandler = useCallback((id) => {
-		setIsLoggedIn(true);
+	const loginHandler = useCallback((id, token) => {
+		setToken(token);
 		setUserId(id);
 	}, []);
 	const logoutHandler = useCallback(() => {
-		setIsLoggedIn(false);
+		setToken(null);
 		setUserId(null);
 	}, []);
 
 	const context = {
 		userId,
-		isLoggedIn,
+		isLoggedIn: !!token,
+		token,
 		login: loginHandler,
 		logout: logoutHandler,
 	};

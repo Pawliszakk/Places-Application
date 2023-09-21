@@ -65,12 +65,12 @@ const Auth = () => {
 					body: formData,
 				});
 				const resData = await res.json();
-
+				console.log(resData);
 				if (!res.ok) {
 					throw new Error(resData.message);
 				}
 
-				authCtx.login(resData.userId);
+				authCtx.login(resData.userId, resData.token);
 				router.replace('/');
 			} catch (error) {
 				setError(error.message || 'Something Went Wrong');
@@ -97,8 +97,7 @@ const Auth = () => {
 			if (!res.ok) {
 				throw new Error(resData.message);
 			}
-
-			authCtx.login(resData.userId);
+			authCtx.login(resData.userId, resData.token);
 
 			router.replace('/');
 		} catch (error) {

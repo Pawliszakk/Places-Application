@@ -58,6 +58,9 @@ const NewPlace = () => {
 			const res = await fetch('http://localhost:5000/api/places', {
 				method: 'POST',
 				body: formData,
+				headers: {
+					Authorization: `Bearer ${authCtx.token}`,
+				},
 			});
 
 			const resData = await res.json();
