@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 import classes from './EditPlace.module.css';
 import AuthContext from '../../context/auth-context';
-import { useRouter } from 'next/router';
 import LoadingSpinner from './UI/LoadingSpinner';
 import ErrorModal from './UI/ErrorModal';
+import { useRouter } from 'next/router';
 
 const EditPlace = (props) => {
 	const [title, setTitle] = useState(props.title);
@@ -19,9 +19,13 @@ const EditPlace = (props) => {
 
 	const authCtx = useContext(AuthContext);
 	const isLoggedIn = authCtx.isLoggedIn;
-	if (!isLoggedIn) {
-		router.replace('/auth');
-	}
+
+	useEffect(() => {
+		if (!isLoggedIn) {
+			console.log(router);
+			router.replace('/auth');
+		}
+	}, []);
 
 	const handleTitleChange = (e) => {
 		setTitle(e.target.value);
@@ -42,11 +46,10 @@ const EditPlace = (props) => {
 		}
 
 		const postData = { title, description, id: props.placeId };
-
 		setIsLoading(true);
 		try {
 			const res = await fetch(
-				`http://localhost:5000/api/places/${props.placeId}`,
+				`${process.env.NEXT_PUBLIC_BACKEND_URL}/places/${props.placeId}`,
 				{
 					method: 'PATCH',
 					body: JSON.stringify(postData),

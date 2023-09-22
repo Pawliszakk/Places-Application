@@ -55,13 +55,16 @@ const NewPlace = () => {
 			formData.append('image', image);
 			formData.append('creator', authCtx.userId);
 
-			const res = await fetch('http://localhost:5000/api/places', {
-				method: 'POST',
-				body: formData,
-				headers: {
-					Authorization: `Bearer ${authCtx.token}`,
-				},
-			});
+			const res = await fetch(
+				`${process.env.NEXT_PUBLIC_BACKEND_URL}/places`,
+				{
+					method: 'POST',
+					body: formData,
+					headers: {
+						Authorization: `Bearer ${authCtx.token}`,
+					},
+				}
+			);
 
 			const resData = await res.json();
 

@@ -10,7 +10,9 @@ export const getServerSideProps = async ({ params }) => {
 	const userId = params.userId;
 	let resData;
 	try {
-		const res = await fetch(`http://localhost:5000/api/places/user/${userId}`);
+		const res = await fetch(
+			`${process.env.NEXT_PUBLIC_BACKEND_URL}/places/user/${userId}`
+		);
 		if (!res.ok) {
 			return { props: { places: [] } };
 		}

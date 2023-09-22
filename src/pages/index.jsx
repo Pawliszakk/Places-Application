@@ -7,7 +7,7 @@ const HomePage = ({ users }) => {
 export default HomePage;
 
 export const getServerSideProps = async () => {
-	const res = await fetch('http://localhost:5000/api/users');
+	const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users`);
 	if (!res.ok) {
 		return {
 			props: {

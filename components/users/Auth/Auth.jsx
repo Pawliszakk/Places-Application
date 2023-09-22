@@ -59,11 +59,14 @@ const Auth = () => {
 				formData.append('name', name);
 				formData.append('image', image);
 
-				const res = await fetch('http://localhost:5000/api/users/signup', {
-					method: 'POST',
+				const res = await fetch(
+					`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/signup`,
+					{
+						method: 'POST',
 
-					body: formData,
-				});
+						body: formData,
+					}
+				);
 				const resData = await res.json();
 				console.log(resData);
 				if (!res.ok) {
@@ -86,13 +89,16 @@ const Auth = () => {
 		const loginData = { email, password };
 		try {
 			setIsLoading(true);
-			const res = await fetch('http://localhost:5000/api/users/login', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(loginData),
-			});
+			const res = await fetch(
+				`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/login`,
+				{
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(loginData),
+				}
+			);
 			const resData = await res.json();
 			if (!res.ok) {
 				throw new Error(resData.message);

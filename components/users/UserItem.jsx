@@ -10,7 +10,7 @@ const UserItem = ({ id, name, image, placeCount }) => {
 				<Link href={`/${id}/places`}>
 					<div className={classes.image}>
 						<Avatar
-							image={`http://localhost:5000/${image}`}
+							image={`${process.env.NEXT_PUBLIC_BACKEND_URL_PHOTO}/${image}`}
 							alt={`${name} Place photo`}
 						/>
 					</div>

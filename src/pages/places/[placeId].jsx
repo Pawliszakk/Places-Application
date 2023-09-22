@@ -17,7 +17,9 @@ export async function getServerSideProps({ params }) {
 	const placeId = params.placeId;
 	let resData;
 	try {
-		const res = await fetch(`http://localhost:5000/api/places/${placeId}`);
+		const res = await fetch(
+			`${process.env.NEXT_PUBLIC_BACKEND_URL}/places/${placeId}`
+		);
 		resData = await res.json();
 	} catch (err) {
 		return {
