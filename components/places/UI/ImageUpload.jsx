@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import classes from './ImageUpload.module.css';
+import Image from 'next/image';
 
 const ImageUpload = ({ id, center, onInput }) => {
 	const [file, setFile] = useState(null);
@@ -51,7 +52,7 @@ const ImageUpload = ({ id, center, onInput }) => {
 			<div className={`${classes.imageUpload} ${center && classes.center}`}>
 				<div className={classes.preview}>
 					{preview ? (
-						<img src={preview} alt="preview" />
+						<Image src={preview} alt="preview" />
 					) : (
 						<p>Please pick an image</p>
 					)}

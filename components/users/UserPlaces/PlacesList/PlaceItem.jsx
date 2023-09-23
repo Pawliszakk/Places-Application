@@ -6,6 +6,7 @@ import Modal from '../../../places/UI/Modal';
 import AuthContext from '../../../../context/auth-context';
 import LoadingSpinner from '../../../places/UI/LoadingSpinner';
 import ErrorModal from '../../../places/UI/ErrorModal';
+import Image from 'next/image';
 
 const PlaceItem = ({ id, image, title, description, address, creatorId }) => {
 	const [isMap, setIsMap] = useState(false);
@@ -49,7 +50,7 @@ const PlaceItem = ({ id, image, title, description, address, creatorId }) => {
 			<li className={classes.placeItem}>
 				<Card className={classes.content}>
 					<div className={classes.image}>
-						<img src={`http://localhost:5000/${image}`} alt={title} />
+						<Image src={`http://localhost:5000/${image}`} alt={title} />
 					</div>
 					<div className={classes.info}>
 						<h2>{title}</h2>
@@ -97,7 +98,7 @@ const PlaceItem = ({ id, image, title, description, address, creatorId }) => {
 				>
 					<div className={classes.mapContainer}>
 						Do you want to proceed and delete this place? Please note that it
-						can't be undone thereafter!
+						can&apos;t be undone thereafter!
 					</div>
 				</Modal>
 			)}

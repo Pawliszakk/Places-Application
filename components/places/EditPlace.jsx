@@ -25,7 +25,7 @@ const EditPlace = (props) => {
 			console.log(router);
 			router.replace('/auth');
 		}
-	}, []);
+	}, [isLoggedIn, router]);
 
 	const handleTitleChange = (e) => {
 		setTitle(e.target.value);
